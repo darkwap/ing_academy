@@ -21,7 +21,21 @@
 # Write an efficient algorithm for the following assumptions:
 #
 # N is an integer within the range [1..2,147,483,647].
-
+import numpy as np
 
 def solution(N):
-    pass
+    max_count = 0
+    max_value = 0
+    mask = 1
+    starting_ones = False
+    for i in range(len(np.binary_repr(N))):
+        x = np.bitwise_and(N, mask)
+        if x == 1:
+            starting_ones = True
+            if max_count > max_value:
+                max_value = max_count
+            max_count = 0
+        elif x == 0 and starting_ones is True:
+            max_count += 1
+        N = np.right_shift(N, 1)
+    return max_value

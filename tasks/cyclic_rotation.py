@@ -40,4 +40,8 @@
 
 
 def solution(A, K):
-    pass
+    K = K % len(A)
+    if K != 0:
+        return A[-K:] + A[:len(A) - K]
+    else:
+        return A
